@@ -6,14 +6,14 @@ if (( $# != 3 )); then
     exit
 fi
 USERNAME=$1
-DEPT=$2
+DEPT=${2:-$(sf_user_dept_list "${USERNAME}")}
 PUB_KEY=$3
 
 HOME_DIR="/data/users/${USERNAME}"
 DEPT_DIR="/data/depts/${DEPT}"
 
 adduser -D -G sshfs -h "${HOME_DIR}" "${USERNAME}"
-passwd -u "${USERNAME}"
+passwd -u "${USERNAME}" > /dev/null
 
 addgroup "${USERNAME}" sshfs
 

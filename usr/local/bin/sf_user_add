@@ -9,10 +9,20 @@ USERNAME=$1
 DEPT=${2:-$(sf_user_dept_list "${USERNAME}")}
 PUB_KEY=$3
 
+if [[ -z USERNAME ]]; then
+    echo Please specify username
+    exit
+fi
+
+if [[ -z DEPT ]]; then
+    echo Please specify department
+    exit
+fi
+
 HOME_DIR="/data/users/${USERNAME}"
 DEPT_DIR="/data/depts/${DEPT}"
 
-adduser -D -G sshfs -h "${HOME_DIR}" "${USERNAME}"
+adduser -D -G sshfs -h "${HOME_DIR}" "${USERNAME}" 2>/dev/null
 passwd -u "${USERNAME}" > /dev/null
 
 addgroup "${USERNAME}" sshfs

@@ -10,7 +10,7 @@ RUN wget ${UTILS_BASE}/alpine/aliases.sh -O /etc/profile.d/aliases.sh; \
     pick-mirror v3.10; \
     apk update; apk upgrade; \
     apk add --no-cache bash coreutils openssh shadow;
-RUN passwd -u root; \
+RUN passwd -du root; \
     addgroup sshfs;
 COPY . /
 VOLUME /data
